@@ -34,7 +34,6 @@ public class SessaoController {
 		ModelAndView modelAndView = new ModelAndView("sessao/sessao");
 		
 		modelAndView.addObject("sala", salaDao.findOne(salaId));
-//		modelAndView.addObject("sessao", salaDao.findOne(salaId));
 		modelAndView.addObject("filmes", filmeDao.findAll());
 		modelAndView.addObject("form", form);
 			
@@ -44,8 +43,7 @@ public class SessaoController {
 	@PostMapping(value = "/admin/sessao")
 	@Transactional
 	public ModelAndView salva(@Valid SessaoForm form, BindingResult result) {
-		if (result.hasErrors())
-			return form(form.getSalaId(),form);
+		if (result.hasErrors()) return form(form.getSalaId(),form);
 		
 		Sessao sessao = form.toSessao(salaDao, filmeDao);
 		sessaoDao.save(sessao);
